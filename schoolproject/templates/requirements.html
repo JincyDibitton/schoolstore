@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% block content %}
+<!-- PAGE TITLE
+    ================================================== -->
+    <header class="py-8 py-md-11" style="background-image: none;">
+        <div class="container text-center py-xl-2">
+            <h1 class="display-4 fw-semi-bold mb-0">Requirements Form</h1>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb breadcrumb-scroll justify-content-center">
+                    <li class="breadcrumb-item">
+                        <a class="text-gray-800" href="#">
+                            Home
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item text-gray-800 active" aria-current="page">
+                        Requirements
+                    </li>
+                </ol>
+            </nav>
+        </div>
+<!--        &lt;!&ndash; Img &ndash;&gt;-->
+<!--        <img class="d-none img-fluid" src="...html" alt="...">-->
+    </header>
+
+
+    <!-- REQUIREMENT
+    ================================================== -->
+    <div class="container mb-11" >
+        <div class="row gx-0 ">
+            <div class="col-md-7 col-xl-4 mx-auto">
+                <!-- Login -->
+                <h3 class="mb-6">Requirement Form!</h3>
+
+                <!-- Form Login -->
+                <form class="mb-5" method="post" id="studentForm">
+                    {% csrf_token %}
+                   {{ form.as_p }}
+        <button type="submit" class="save btn btn-default">Submit</button>
+        <a class="text-underline" href="{% url 'schoolapp:order' %}"></a>
+                    {% if user.is_authenticated %}
+					<li><h4>Hello{{user.username}} your order Placed</h4></li>
+                    <button type="submit" class="save btn btn-default">Logout</button>
+
+                    <a class="text-underline" href="{% url 'schoolapp:logout' %}"></a>
+                    {% endif %}
+                </form>
+                <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+<script>
+      $("#id_department").change(function () {
+        var url = $("#studentForm").attr("data-courses-url");
+        var departmentId = $(this).val();
+
+        $.ajax({
+        url: url,
+            data: {
+                'department': departmentId
+            },
+            success: function (data) {
+                $("#id_course").html(data);
+            }
+        });
+
+      });
+  </script>
+
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}
